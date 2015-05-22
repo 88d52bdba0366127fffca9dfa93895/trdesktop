@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+source /etc/trdesktop/list_machines.txt
+
+_reso=$(xdotool getwindowgeometry $(xdotool getwindowfocus) | \
+  grep 'Geometry' | \
+  awk '{ print $2 }')
+
+for (( _count=0; _count <= ${#_machine[*]}; _count+=5 )) do
+  if [[ "$1" == "${_machine[${_count}]}" || \
+    "$1" == "${_machine[${_count}+1]}" ]]; then
+    _ip=${_machine[${_count}+1]}
+    _user=${_machine[${_count}+2]}
+    _pass=$(echo ${_machine[${_count}+3]} | \
+        openssl enc -d -base64 | \
+        sed 's.\\..g')
+    _domain=${_machine[${_count}+4]}
+
+    /usr/local/bin/rdesktop \
+      ${_ip} \
+      -g ${_reso} \
+      -u ${_user} \
+      -p ${_pass} \
+      -d ${_domain} \
+      -b -t -D -P -r sound:off \
+      $(for (( i=2; i<=$#; i++)) do echo -n ${!i}" "; done)
+      break
+  elif [ "$_count" -eq "${#_machine[*]}" ]; then
+    # if host is not defined in array, try to connect normally
+    /usr/local/bin/rdesktop $1 -g ${_reso} -b -t -D -P -r sound:off \
+    $(for (( i=2; i<=$#; i++)) do echo -n ${!i}" "; done)
+  fi
+done

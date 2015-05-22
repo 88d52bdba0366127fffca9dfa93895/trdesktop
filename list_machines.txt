@@ -1,0 +1,5 @@
+_machine=(
+  #name    #address         #username      #password                 #domain   
+  home     192.168.1.102    tuanta         Z2l1vdHJ1YQhY2==          ''
+  office   10.11.21.88      tuanta         Z2l1vdHJ1YQhY2==          ''
+  win7     10.11.21.65      Administrator  YWW5AMTIzRta              '')

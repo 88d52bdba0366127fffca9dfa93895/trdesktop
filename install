@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir /etc/trdesktop/
+ln -s $(pwd)/list_machines.txt /etc/trdesktop/list_machines.txt
+ln -s $(pwd)/trdesktop /usr/bin/trdesktop

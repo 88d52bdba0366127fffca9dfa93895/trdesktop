@@ -1,0 +1,49 @@
+--- a/xkeymap.c	2014-05-20 18:24:59.000000000 +0700
++++ b/xkeymap.c	2015-01-14 00:18:15.484012000 +0700
+@@ -724,6 +724,46 @@
+ 				ui_seamless_toggle();
+ 			break;
+ 
++		case XK_1:
++		case XK_2:
++		case XK_3:
++		case XK_4:
++		case XK_5:
++		case XK_6:
++		case XK_7:
++		case XK_8:
++		case XK_9:
++			if ((get_key_state(state, XK_Alt_L)
++				 || get_key_state(state, XK_Alt_R))
++			    && (get_key_state(state, XK_Control_L)
++				    || get_key_state(state, XK_Control_R)))
++			{
++				XUngrabKeyboard(g_display, CurrentTime);
++				return True;
++			}
++			break;
++
++		case XK_c:
++		case XK_C:
++			if ((get_key_state(state, XK_Alt_L)
++				 || get_key_state(state, XK_Alt_R))
++				 && (get_key_state(state, XK_Shift_L)
++				 	 || get_key_state(state, XK_Shift_R)))
++			{
++				exit(0);
++			}
++			break;
++
++		case XK_comma:
++		case XK_period:
++			if (get_key_state(state, XK_Alt_L) || get_key_state(state, XK_Alt_R))
++			{
++				XUngrabKeyboard(g_display, CurrentTime);
++				system("xdotool key --clearmodifiers Alt+period");
++				return True;
++			}
++			break;
++
+ 	}
+ 	return False;
+ }
