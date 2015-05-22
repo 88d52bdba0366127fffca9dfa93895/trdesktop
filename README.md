@@ -81,8 +81,8 @@ instead of ln
 
 ## Dependencies
 
-rdesktop
-xdotool
+- rdesktop
+- xdotool
 
 ## License
 
